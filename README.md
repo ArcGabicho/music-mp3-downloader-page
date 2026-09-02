@@ -27,16 +27,35 @@ El formulario del footer envía el correo a la Pages Function
 `SUBSCRIBERS`. Para que funcione:
 
 ```bash
-npx wrangler kv namespace create SUBSCRIBERS   # copia el id en wrangler.toml
+npx wrangler kv namespace create SUBSCRIBERS            # namespace de producción
+npx wrangler kv namespace create SUBSCRIBERS --preview  # namespace de preview
 ```
+
+En producción, añade el binding en el dashboard:
+**Pages → tu proyecto → Settings → Functions → KV namespace bindings**
+(variable: `SUBSCRIBERS`).
+
+Para desarrollo local con la función y un KV efímero:
 
 ```bash
-npx wrangler pages dev -- npm run dev           # dev con funciones + KV
+npx wrangler pages dev --kv SUBSCRIBERS -- npm run dev
 ```
 
-En producción, añade el mismo binding en Pages → Settings → Functions → KV
-namespace bindings.
-
 ---
+
+#### Despliegue
+
+El proyecto está montado como **Cloudflare Pages**. En Settings → Builds &
+deployments:
+
+| Campo | Valor |
+|---|---|
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Deploy command | `npx wrangler pages deploy dist` *(o vacío para deploy automático por Git)* |
+
+> [!WARNING]
+> No uses `npx wrangler deploy` a secas: ese comando es de **Workers** y falla
+> con `Missing entry-point to Worker script or to assets directory`.
 
 El sitio se publica en <https://music-mp3-downloader-page.pages.dev> gracias a Cloudflare Pages.

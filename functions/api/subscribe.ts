@@ -2,8 +2,9 @@
 //
 // Guarda el correo de quien quiere recibir avisos de nuevas versiones de
 // Music MP3 Downloader. Los correos se persisten en un KV namespace con el
-// binding `SUBSCRIBERS` (configúralo en Pages → Settings → Functions →
-// KV namespace bindings, o en wrangler.toml para `wrangler pages dev`).
+// binding `SUBSCRIBERS`: en producción se configura en Pages → Settings →
+// Functions → KV namespace bindings; en local, con
+// `npx wrangler pages dev --kv SUBSCRIBERS -- npm run dev`.
 //
 // El envío del aviso en sí (cuando sale una release) lo hace un job aparte
 // que lee este KV; aquí solo se captura la suscripción.

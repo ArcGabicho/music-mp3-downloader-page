@@ -1,21 +1,33 @@
-# Configuración de Cloudflare Pages / wrangler.
+# Configuración de Cloudflare Pages.
 #
-# El sitio se construye con Astro a ./dist y las funciones viven en ./functions.
-# El formulario "recibe avisos" (functions/api/subscribe.ts) necesita un KV
-# namespace con el binding SUBSCRIBERS.
+# El sitio se construye con Astro a ./dist y las funciones viven en ./functions
+# (functions/api/subscribe.ts).
 #
-#   1. Crea el namespace:   npx wrangler kv namespace create SUBSCRIBERS
-#   2. Pega el id que devuelve en `id` (abajo) y en `preview_id`.
-#   3. En producción (Pages) añade el mismo binding en:
-#      Pages → tu proyecto → Settings → Functions → KV namespace bindings.
-#
-# Desarrollo local con funciones:  npx wrangler pages dev -- npm run dev
+# Deploy: el proyecto de Pages usa como Deploy command  `npx wrangler pages deploy dist`
+# (o deploy automático por Git). NO uses `wrangler deploy` a secas: ese es de
+# Workers y falla con "Missing entry-point to Worker script".
 
 name = "music-mp3-downloader-page"
 compatibility_date = "2024-11-01"
 pages_build_output_dir = "dist"
 
-[[kv_namespaces]]
-binding = "SUBSCRIBERS"
-id = "REEMPLAZA_CON_TU_KV_NAMESPACE_ID"
-preview_id = "REEMPLAZA_CON_TU_KV_NAMESPACE_ID"
+# --- KV para el formulario de avisos (functions/api/subscribe.ts) --------------
+#
+# El binding SUBSCRIBERS se configura en el dashboard:
+#   Pages → tu proyecto → Settings → Functions → KV namespace bindings
+#   (nombre de la variable: SUBSCRIBERS)
+#
+# Crea el namespace una vez:
+#   npx wrangler kv namespace create SUBSCRIBERS
+#   npx wrangler kv namespace create SUBSCRIBERS --preview
+#
+# Desarrollo local con la función + un KV efímero:
+#   npx wrangler pages dev --kv SUBSCRIBERS -- npm run dev
+#
+# Si prefieres declarar el binding aquí en vez de en el dashboard, descomenta y
+# pega los ids reales (y entonces sí quedarán versionados en el repo):
+#
+# [[kv_namespaces]]
+# binding = "SUBSCRIBERS"
+# id = "<kv-namespace-id>"
+# preview_id = "<kv-preview-namespace-id>"
