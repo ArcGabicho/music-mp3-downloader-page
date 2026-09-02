@@ -20,4 +20,4 @@ curl -fsSL https://raw.githubusercontent.com/ArcGabicho/music-mp3-downloader-pag
 
 ---
 
-Vísitalo en <https://music-mp3-downloader-page.pcjhonny13.workers.dev/> con **Cloudflare Pages** por integración Git. 
+Vísitalo en <https://music-mp3-downloader-page.pcjhonny13.workers.dev/> — desplegado en **Cloudflare Workers** (assets estáticos) por integración Git.
