@@ -1,0 +1,51 @@
+---
+import AppMock from "./AppMock.astro";
+
+const badges = [
+	{ title: "Windows", line: "Setup .exe · sin admin · SmartScreen → Ejecutar de todas formas" },
+	{ title: "macOS", line: ".dmg universal · Apple Silicon e Intel" },
+	{ title: "Arch / CachyOS", line: "yay -S music-mp3-downloader-bin" },
+];
+---
+
+<section id="plataformas" class="bg-night py-16 text-white sm:py-28">
+	<div class="mx-auto max-w-7xl px-5 sm:px-8">
+		<div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+			<div>
+				<p class="eyebrow text-white/45">Un formato, tres sistemas</p>
+				<h2 class="mt-4 text-2xl font-bold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">
+					Funciona nativo en tu sistema operativo.
+				</h2>
+				<p class="mt-5 max-w-md text-sm leading-relaxed text-white/60">
+					El mismo código en Windows, macOS y Linux gracias a Avalonia UI. El binario
+					ya trae <span class="text-white/80">yt-dlp</span> y
+					<span class="text-white/80">ffmpeg</span>, así que no instalas dependencias
+					aparte — en Linux solo necesitas <span class="text-white/80">vlc</span> (libvlc)
+					para la reproducción.
+				</p>
+				<a
+					href="#instalacion"
+					class="btn btn-light btn-lg mt-8 w-full sm:w-auto"
+					>Ver instalación</a
+				>
+			</div>
+
+			<div class="relative">
+				<AppMock size="lg" />
+				<div class="mt-4 space-y-2.5 lg:absolute lg:-right-6 lg:bottom-6 lg:mt-0 lg:w-88">
+					{
+						badges.map((b) => (
+							<div class="flex items-center gap-3 rounded-full border border-white/10 bg-[#1b1b1e]/90 px-4 py-2.5 shadow-lg shadow-black/30 backdrop-blur">
+								<span class="h-2 w-2 shrink-0 rounded-full bg-white/40" />
+								<div class="min-w-0">
+									<p class="text-xs font-semibold">{b.title}</p>
+									<p class="truncate font-mono text-[0.68rem] text-white/45">{b.line}</p>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

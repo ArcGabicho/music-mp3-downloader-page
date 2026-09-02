@@ -1,46 +1,42 @@
-# Astro Starter Kit: Basics
+# Sitio web de Music MP3 Downloader
 
-```sh
-npm create astro@latest -- --template basics
+![Wallpaper](https://i.imgur.com/2lcUDNj.png)
+
+Landing page del proyecto **[Music MP3 Downloader](https://github.com/ArcGabicho/music-mp3-downloader)**,
+la app de escritorio multiplataforma (.NET 10 + Avalonia UI) para descargar audio
+de YouTube en MP3 y reproducirlo en una interfaz moderna.
+
+---
+
+#### Ejecuta el script remoto para tener el proyecto de forma local
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ArcGabicho/music-mp3-downloader-page/main/setup.sh | bash
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> [!WARNING]
+> El script `setup.sh` clona el repositorio, entra en la carpeta, ejecuta
+> `npm install` y arranca el servidor de desarrollo en <http://localhost:4321>.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+#### Avisos de nuevas versiones
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+El formulario del footer envía el correo a la Pages Function
+`functions/api/subscribe.ts`, que lo guarda en un KV namespace con el binding
+`SUBSCRIBERS`. Para que funcione:
+
+```bash
+npx wrangler kv namespace create SUBSCRIBERS   # copia el id en wrangler.toml
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+```bash
+npx wrangler pages dev -- npm run dev           # dev con funciones + KV
+```
 
-## 🧞 Commands
+En producción, añade el mismo binding en Pages → Settings → Functions → KV
+namespace bindings.
 
-All commands are run from the root of the project, from a terminal:
+---
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+El sitio se publica en <https://music-mp3-downloader-page.pages.dev> gracias a Cloudflare Pages.

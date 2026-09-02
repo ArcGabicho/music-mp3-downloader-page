@@ -1,0 +1,89 @@
+---
+import NotifyForm from "./NotifyForm.tsx";
+
+const repo = "https://github.com/ArcGabicho/music-mp3-downloader";
+const cols = [
+	{
+		title: "Proyecto",
+		links: [
+			["Características", "#caracteristicas"],
+			["Plataformas", "#plataformas"],
+			["Tecnología", "#tecnologia"],
+			["Instalación", "#instalacion"],
+		],
+	},
+	{
+		title: "Descargas",
+		links: [
+			["Windows (.exe)", `${repo}/releases/latest`],
+			["macOS (.dmg)", `${repo}/releases/latest`],
+			["Arch / CachyOS (AUR)", "https://aur.archlinux.org/packages/music-mp3-downloader-bin"],
+			["Todas las releases", `${repo}/releases`],
+		],
+	},
+	{
+		title: "Recursos",
+		links: [
+			["Código fuente", repo],
+			["Reportar un bug", `${repo}/issues`],
+			["Licencia MIT", `${repo}/blob/main/LICENSE.md`],
+			[".NET 10", "https://dotnet.microsoft.com/download/dotnet/10.0"],
+		],
+	},
+];
+---
+
+<footer class="bg-paper pt-16 pb-10 sm:pt-20">
+	<div class="mx-auto max-w-7xl px-5 sm:px-8">
+		<div class="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-8">
+			<div>
+				<p class="eyebrow">Recibe avisos de nuevas versiones</p>
+				<NotifyForm client:load />
+				<p class="mt-3 text-xs text-ink-soft/70">
+					Sin spam. Solo un correo cuando se publica una release.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8">
+				{
+					cols.map((c) => (
+						<div>
+							<h3 class="text-xs font-semibold tracking-wide text-ink-soft uppercase">
+								{c.title}
+							</h3>
+							<ul class="mt-4 space-y-2.5">
+								{c.links.map(([label, href]) => (
+									<li>
+										<a
+											href={href}
+											target={href.startsWith("http") ? "_blank" : undefined}
+											rel={href.startsWith("http") ? "noopener" : undefined}
+											class="text-sm text-ink-soft transition-colors hover:text-ink"
+										>
+											{label}
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					))
+				}
+			</div>
+		</div>
+
+		<div aria-hidden="true" class="mt-12 overflow-hidden sm:mt-16">
+			<span class="wordmark block text-ink text-[clamp(2.75rem,15vw,13rem)]">
+				Downloader
+			</span>
+		</div>
+
+		<div
+			class="mt-8 flex flex-col gap-4 border-t border-hairline pt-6 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between"
+		>
+			<p>© 2026 Music MP3 Downloader · Hecho con .NET 10 y Avalonia UI.</p>
+			<p class="max-w-md sm:text-right">
+				Usa esta herramienta solo con contenido que tengas derecho a descargar.
+			</p>
+		</div>
+	</div>
+</footer>

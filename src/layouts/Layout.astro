@@ -1,23 +1,120 @@
+---
+const SITE = "https://music-mp3-downloader-pages.astro.dev";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+	noindex?: boolean;
+}
+
+const {
+	title = "Music MP3 Downloader — Descarga música de YouTube en MP3",
+	description = "App de escritorio multiplataforma hecha con .NET 10 y Avalonia UI para descargar audio de YouTube en MP3 y reproducirlo en una interfaz moderna. Windows, macOS y Linux.",
+	image = "https://i.imgur.com/2lcUDNj.png",
+	noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE).href;
+const author = "Gabriel Polack";
+const keywords = [
+	"descargar mp3",
+	"youtube a mp3",
+	"descargar musica youtube",
+	"conversor mp3",
+	"yt-dlp",
+	"ffmpeg",
+	"reproductor de musica",
+	"aplicacion de escritorio",
+	"avalonia ui",
+	".NET 10",
+	"windows",
+	"macos",
+	"linux",
+	"arch linux",
+	"codigo abierto",
+].join(", ");
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "SoftwareApplication",
+	name: "Music MP3 Downloader",
+	description,
+	url: SITE,
+	applicationCategory: "MultimediaApplication",
+	operatingSystem: "Windows, macOS, Linux",
+	offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+	license: "https://opensource.org/licenses/MIT",
+	downloadUrl:
+		"https://github.com/ArcGabicho/music-mp3-downloader/releases/latest",
+	author: { "@type": "Person", name: author },
+	softwareRequirements: "Windows 10/11, macOS 12+, o una distribución Linux",
+};
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
+		<!-- Document -->
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<link rel="canonical" href={canonical} />
+
+		<!-- Primary meta -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="author" content={author} />
+		<meta name="publisher" content={author} />
+		<meta name="application-name" content="Music MP3 Downloader" />
+		<meta name="category" content="Multimedia" />
+		<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"} />
+
+		<!-- Appearance -->
+		<meta name="theme-color" content="#101010" />
+		<meta name="color-scheme" content="light" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="apple-mobile-web-app-title" content="MP3 Downloader" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="mobile-web-app-capable" content="yes" />
+
+		<!-- Icons -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Music MP3 Downloader" />
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+		<meta property="og:image:secure_url" content={image} />
+		<meta property="og:image:width" content="1280" />
+		<meta property="og:image:height" content="640" />
+		<meta property="og:image:alt" content="Interfaz de Music MP3 Downloader" />
+
+		<!-- Twitter / X -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image} />
+		<meta name="twitter:image:alt" content="Interfaz de Music MP3 Downloader" />
+		<meta name="twitter:creator" content="@ArcGabicho" />
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+
+		<!-- Structured data -->
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

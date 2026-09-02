@@ -1,0 +1,32 @@
+---
+import InstallTabs from "./InstallTabs.tsx";
+const repo = "https://github.com/ArcGabicho/music-mp3-downloader/releases/latest";
+---
+
+<section id="instalacion" class="bg-night py-16 text-white sm:py-32">
+	<div class="mx-auto flex max-w-7xl flex-col items-center px-5 text-center sm:px-8">
+		<p class="eyebrow text-white/45">Instalación</p>
+		<h2
+			class="mt-4 max-w-3xl text-2xl font-bold tracking-tight sm:text-4xl md:text-[3rem] md:leading-[1.08]"
+		>
+			Empieza a descargar en menos de un minuto.
+		</h2>
+		<p class="mt-4 max-w-xl text-sm text-white/55">
+			Un comando y listo. También puedes bajar el instalador directamente desde las
+			releases de GitHub.
+		</p>
+
+		<div class="mt-8 flex w-full flex-col items-center sm:mt-10">
+			<InstallTabs client:load />
+		</div>
+
+		<a
+			href={repo}
+			target="_blank"
+			rel="noopener"
+			class="btn btn-light btn-lg mt-8 w-full max-w-sm sm:w-auto sm:max-w-none"
+		>
+			Descargar desde GitHub Releases
+		</a>
+	</div>
+</section>

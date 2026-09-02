@@ -1,11 +1,28 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import Marquee from "../components/Marquee.astro";
+import ValueProp from "../components/ValueProp.astro";
+import OsSection from "../components/OsSection.astro";
+import TechSection from "../components/TechSection.astro";
+import InstallCta from "../components/InstallCta.astro";
+import Footer from "../components/Footer.astro";
+import ToasterMount from "../components/ToasterMount.tsx";
 ---
 
 <Layout>
-	<Welcome />
+	<Nav />
+	<main>
+		<Hero />
+		<Marquee />
+		<ValueProp />
+		<OsSection />
+		<TechSection />
+		<InstallCta />
+	</main>
+	<Footer />
+	<ToasterMount client:load />
 </Layout>

@@ -1,0 +1,115 @@
+@import "tailwindcss";
+@import "sileo/styles.css";
+
+/* ------------------------------- Design tokens ------------------------------ */
+@theme {
+	--font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+		Roboto, Helvetica, Arial, sans-serif;
+	--font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+		monospace;
+
+	--color-paper: #f1efe9;
+	--color-bone: #e8e5dd;
+	--color-card: #fbfaf7;
+	--color-ink: #131311;
+	--color-ink-soft: #55524b;
+	--color-night: #101010;
+	--color-hairline: #d7d3c9;
+}
+
+/* --------------------------------- Base ----------------------------------- */
+:root {
+	color-scheme: light;
+}
+
+html {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background: var(--color-paper);
+	color: var(--color-ink);
+	font-family: var(--font-sans);
+	overflow-x: hidden;
+	/* Evita que palabras largas (URLs, hashes) desborden en pantallas estrechas */
+	overflow-wrap: break-word;
+}
+
+/* Los wordmarks gigantes son una sola palabra: que se reescalen, no que se corten */
+.wordmark {
+	overflow-wrap: normal;
+	word-break: keep-all;
+}
+
+/* Las imágenes nunca fuerzan scroll horizontal en móvil */
+img,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+::selection {
+	background: var(--color-ink);
+	color: var(--color-paper);
+}
+
+[id] {
+	scroll-margin-top: 6rem;
+}
+
+/* Giant display wordmark, à la the reference hero/footer lockups */
+.wordmark {
+	font-weight: 800;
+	letter-spacing: -0.05em;
+	line-height: 0.82;
+	text-transform: none;
+}
+
+.hairline {
+	border-color: var(--color-hairline);
+}
+
+/* ------------------------------ Components ------------------------------- */
+@layer components {
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 rounded-full text-sm
+			font-semibold whitespace-nowrap transition-all duration-200
+			outline-none focus-visible:ring-2 focus-visible:ring-ink/25
+			focus-visible:ring-offset-2;
+	}
+	.btn-lg {
+		@apply h-13 px-7 text-[0.95rem];
+	}
+	.btn-dark {
+		@apply bg-ink text-paper hover:bg-[#2b2b28] active:scale-[0.98]
+			focus-visible:ring-offset-paper;
+	}
+	.btn-light {
+		@apply bg-card text-ink shadow-sm ring-1 ring-black/5 hover:bg-white
+			active:scale-[0.98] focus-visible:ring-offset-transparent;
+	}
+	.btn-ghost {
+		@apply text-ink/65 hover:text-ink;
+	}
+	.chip {
+		@apply inline-flex items-center gap-1.5 rounded-full border border-hairline
+			bg-card/70 px-3 py-1 text-xs font-medium text-ink-soft;
+	}
+	.chip-dark {
+		@apply inline-flex items-center gap-1.5 rounded-full border border-white/15
+			bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70
+			backdrop-blur-sm;
+	}
+	.eyebrow {
+		@apply text-[0.7rem] font-semibold tracking-[0.22em] text-ink-soft uppercase;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}

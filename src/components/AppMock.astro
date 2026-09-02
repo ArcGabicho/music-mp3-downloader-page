@@ -1,0 +1,145 @@
+---
+interface Props {
+  size?: "sm" | "lg";
+  class?: string;
+}
+
+const { size = "lg", class: className = "" } = Astro.props;
+
+const count = size === "lg" ? 60 : 40;
+const bars = Array.from({ length: count }, (_, i) => {
+  const v = Math.abs(Math.sin(i * 0.5) + Math.sin(i * 0.17) * 0.6);
+  return Math.round(14 + (v / 1.6) * 78);
+});
+
+const played = Math.round(count * 0.38);
+
+const tracks = [
+  { n: "01", t: "Midnight Drive", d: "3:58" },
+  { n: "02", t: "Paper Streets", d: "4:12" },
+  { n: "03", t: "Low Orbit", d: "2:47" },
+  { n: "04", t: "Static Bloom", d: "3:30" },
+];
+
+const rows = size === "lg" ? tracks : tracks.slice(0, 2);
+---
+
+<div
+  class:list={[
+    "overflow-hidden rounded-2xl border border-white/10 bg-linear-to-b from-[#18181b] to-[#0f0f11] text-white shadow-2xl shadow-black/40",
+    className,
+  ]}
+>
+  <!-- window chrome -->
+  <div class="flex items-center gap-2 border-b border-white/[0.07] px-4 py-3">
+    <span class="h-3 w-3 rounded-full bg-[#ff5f57]/80"></span>
+    <span class="h-3 w-3 rounded-full bg-[#febc2e]/80"></span>
+    <span class="h-3 w-3 rounded-full bg-[#28c840]/80"></span>
+    <span class="ml-3 font-mono text-[0.7rem] text-white/40"
+      >music-mp3-downloader</span
+    >
+  </div>
+
+  <div class="p-4 sm:p-5">
+    <!-- now playing -->
+    <div class="flex items-center gap-3 sm:gap-4">
+      <div class="relative shrink-0">
+        <div
+          class="grid h-12 w-12 place-items-center rounded-full border border-white/15 bg-white/6 sm:h-14 sm:w-14"
+        >
+          <span class="h-3.5 w-3.5 rounded-full bg-white/25"></span>
+        </div>
+      </div>
+      <div class="min-w-0 flex-1">
+        <p class="truncate text-sm font-semibold">Midnight Drive</p>
+        <p class="truncate text-xs text-white/45">
+          The Nightowls · 320 kbps · MP3
+        </p>
+      </div>
+      <span class="chip-dark hidden sm:inline-flex">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#28c840]"></span> Descargado
+      </span>
+    </div>
+
+    <!-- waveform -->
+    <div class="mt-4 flex h-12 items-end gap-0.5 sm:h-14">
+      {
+        bars.map((h, i) => (
+          <span
+            class:list={[
+              "w-full rounded-full",
+              i < played ? "bg-white/70" : "bg-white/15",
+            ]}
+            style={`height:${h}%`}
+          />
+        ))
+      }
+    </div>
+    <div
+      class="mt-2 flex justify-between font-mono text-[0.65rem] text-white/40"
+    >
+      <span>1:32</span><span>3:58</span>
+    </div>
+
+    <!-- track list -->
+    <ul class="mt-4 space-y-1">
+      {
+        rows.map((r, i) => (
+          <li
+            class:list={[
+              "flex items-center gap-3 rounded-lg px-2.5 py-2 text-xs",
+              i === 0 ? "bg-white/6 text-white" : "text-white/55",
+            ]}
+          >
+            <span class="font-mono text-white/30">{r.n}</span>
+            <span class="flex-1 truncate">{r.t}</span>
+            <span class="font-mono text-white/35">{r.d}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- transport -->
+    <div class="mt-4 flex items-center gap-3 border-t border-white/[0.07] pt-4 sm:gap-4">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="text-white/45"
+      >
+        <path d="M19 20 9 12l10-8v16ZM7 4v16H5V4h2Z"></path>
+      </svg>
+      <div
+        class="grid h-9 w-9 place-items-center rounded-full bg-white text-[#0f0f11]"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7L8 5Z"></path>
+        </svg>
+      </div>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="text-white/45"
+      >
+        <path d="m5 4 10 8L5 20V4Zm12 0h2v16h-2V4Z"></path>
+      </svg>
+      <div class="ml-2 h-1 flex-1 overflow-hidden rounded-full bg-white/10">
+        <div class="h-full w-[38%] rounded-full bg-white/70"></div>
+      </div>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="text-white/45"
+      >
+        <path
+          d="M3 9v6h4l5 5V4L7 9H3Zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.06A4.5 4.5 0 0 0 16.5 12Z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+</div>
