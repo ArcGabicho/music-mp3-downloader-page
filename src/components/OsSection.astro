@@ -8,10 +8,10 @@ const badges = [
 ];
 ---
 
-<section id="plataformas" class="bg-night py-16 text-white sm:py-28">
+<section id="plataformas" class="overflow-x-clip bg-night py-16 text-white sm:py-28">
 	<div class="mx-auto max-w-7xl px-5 sm:px-8">
 		<div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-			<div>
+			<div class="min-w-0">
 				<p class="eyebrow text-white/45">Un formato, tres sistemas</p>
 				<h2 class="mt-4 text-2xl font-bold tracking-tight sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">
 					Funciona nativo en tu sistema operativo.
@@ -30,12 +30,12 @@ const badges = [
 				>
 			</div>
 
-			<div class="relative">
+			<div class="min-w-0">
 				<AppMock size="lg" />
-				<div class="mt-4 space-y-2.5 lg:absolute lg:-right-6 lg:bottom-6 lg:mt-0 lg:w-88">
+				<div class="mt-5 space-y-2.5">
 					{
 						badges.map((b) => (
-							<div class="flex items-center gap-3 rounded-full border border-white/10 bg-[#1b1b1e]/90 px-4 py-2.5 shadow-lg shadow-black/30 backdrop-blur">
+							<div class="flex items-center gap-3 rounded-full border border-white/10 bg-[#1b1b1e]/90 px-4 py-2.5">
 								<span class="h-2 w-2 shrink-0 rounded-full bg-white/40" />
 								<div class="min-w-0">
 									<p class="text-xs font-semibold">{b.title}</p>

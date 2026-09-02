@@ -62,12 +62,12 @@ const rows = size === "lg" ? tracks : tracks.slice(0, 2);
     </div>
 
     <!-- waveform -->
-    <div class="mt-4 flex h-12 items-end gap-0.5 sm:h-14">
+    <div class="mt-4 flex h-12 items-end gap-0.5 overflow-hidden sm:h-14">
       {
         bars.map((h, i) => (
           <span
             class:list={[
-              "w-full rounded-full",
+              "min-w-0 flex-1 rounded-full",
               i < played ? "bg-white/70" : "bg-white/15",
             ]}
             style={`height:${h}%`}

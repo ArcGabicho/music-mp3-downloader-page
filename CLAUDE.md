@@ -38,21 +38,17 @@ exactamente lo que valida el CI (`.github/workflows/ci.yml`) en cada push y PR.
   `Layout.astro`.
 - **React solo para interactividad.** Un componente pasa a ser un island `.tsx`
   (hidratado con `client:load`) *solo* cuando necesita estado o manejadores de
-  eventos. Islands actuales: `DownloadPicker`, `InstallTabs`, `NotifyForm`,
-  `ToasterMount`.
+  eventos. Islands actuales: `DownloadPicker`, `InstallTabs`, `ToasterMount`.
 - **`DownloadPicker.tsx`** (en el hero) es el selector de descarga: lista los
   assets de la release fijada en la constante `RELEASE` (`v0.1.0`) del repo de la
   app, autoselecciona la build según el sistema operativo y enlaza al asset de
   GitHub. Al publicar una nueva release hay que actualizar `RELEASE`, `file`,
   `size` y `sha256` de cada entrada de `BUILDS`.
-- **Backend mínimo en `functions/`.** `functions/api/subscribe.ts` es una
-  Cloudflare Pages Function (`POST /api/subscribe`) que valida el correo y lo
-  guarda en el KV namespace con binding `SUBSCRIBERS`, que se configura en el
-  dashboard (Pages → Settings → Functions → KV namespace bindings). `wrangler.toml`
-  solo lleva `name` / `compatibility_date` / `pages_build_output_dir`; el bloque
-  KV está comentado como plantilla. Es lo único que no es estático;
-  `NotifyForm.tsx` lo consume con `fetch`. El deploy usa `wrangler pages deploy`,
-  nunca `wrangler deploy` (ese es de Workers y falla sin entry-point).
+- **Sitio 100 % estático, sin backend.** No hay `functions/` ni adaptador SSR: el
+  build produce solo HTML/CSS/JS en `dist/` y Cloudflare Pages lo publica tal
+  cual (build `npm run build`, output `dist`, sin deploy command). El bloque
+  "Entérate de cada versión" del `Footer` enlaza a las releases de GitHub y a su
+  feed `releases.atom`; no hay formulario de correo.
 - **Un solo toaster.** `ToasterMount.tsx` renderiza el único `<Toaster>` de
   `sileo` de toda la página (`position="bottom-right"`, `theme="system"`). Los
   islands llaman a `sileo.success` / `sileo.warning` / `sileo.error` desde el
